@@ -5,15 +5,31 @@
   <meta name="viewport" content="width=device-width, intitial-scale=1.0, user-scalable=no">
   <title>The Transfinite Archive</title>
   <style>
-    body { margin: 0; overflow: hidden; background: black; font-family: monospace; font-color: white; touch-action: none; user-select: none }
-    .math-block { background: black; padding: 15px; border-radius: 6px; margin: 15px; font-color: white; }
+    body { display: block; margin: 0; overflow-x: hidden !important; overflow-y: auto !important; background: black; font-family: monospace; color: white; touch-action: none; user-select: none; font-size: 16px; }
+    .math-block { display: block; padding-left: 2em; margin-top: -0.75em; border-radius: 6px; }
+    .inline-math-block { display: block; padding-left: 2em; margin-top: 1.25em; border-radius: 6px; }
+    mjx-container[display="true"] { display: block; margin-bottom: -1em !important; white-space: normal !important; word-wrap: break-word !important; max-width: 100% !important; }
+    .h1 { display: block; padding-left: 1em; margin-top: 1em; font-size: 20px; }
+    .h2 { display: block; padding-left: 1.75em; margin-top: 1em; font-size: 15px; }
   </style>
+  <script>
+window.MathJax = { 
+tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
+chtml: { displayAlign: 'left', displayOverflow: 'linebreak',
+linebreaks: { inline: true, display: true, lineleading: 0.4 }
+}}
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js" defer></script
 </head>
 <body>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js" defer></script>
-  <div id="test">test</div>
-  <div class="math-block">
-        $$G = 3 \uparrow^{n} 3 \text{ where } n = 3 \uparrow\uparrow\uparrow\uparrow 3$$
-    </div>
+  <span class="h1">The COWWD equation:</span>
+  <span class="math-block">$$Z = n [\uparrow^{2^{10^{28^n}}}] n + 2^{10^{28}}$$</span>
+  <span class="math-block">$$GM(n) = |GraphMinor(n)|$$</span>
+  <span class="math-block">$$E^k(1) = GM(1 [\uparrow^Z] 1)$$</span>
+  <span class="h2">For any value of k &gt; 1: $E^k(x) = GM(E^{(k^x) - 1}(Z) [\uparrow^{k + 1}] E^Z(k - 1))$</span>
+  <span class="math-block">$$M = E^Z(GM(Z [\uparrow^Z] Z))$$</span>
+  <span class="math-block">$$a = \Psi_0(\chi_K(M))$$</span>
+  <span class="inline-math-block">$IGM^{i}(n) = GM(GM(_\cdots GM(n)_\cdots))$, repeated $i$ times.</span>
+  <span class="math-block">$$COWWD(n) = \\ (f_a(IGM^M(IGM^M(M [\uparrow^M] IGM^{M^Z}(M)))) + GM(GM(Z^{GM(M)}))) [\uparrow^{IGM^{M^Z}}] IGM^M(M) + Z [\uparrow^{IGM^{f_a(GM(M))}(f_a(M))}] GM(f_a(IGM^Z(f_a(IGM(M))))) + IGM^M(IGM^Z(Z^{IGM^{GM(M)}})) + f_a(E^M(IGM^M(M)))$$</span>
 </body>
 </html>
