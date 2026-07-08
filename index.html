@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>The Transfinite Archive - Homepage</title>
+  <style>
+    * { -webkit-tap-highlight-color: transparent; cursor: pointer; text-decoration: none; }
+    body { margin: 0; overflow-x: hidden !important; overflow-y: auto !important; background: black; font-family: monospace; touch-action: none; user-select: none; justify-content: center; min-height: 100vh; max-height: 100vh; }
+    #title-container { -webkit-tap-highlight-color: transparent; cursor: pointer; display: block; background-color: rgba(34, 34, 34, 0.4); border-radius: 3em; padding: 1em 3em 1em 3em; max-width: fit-content; margin: 1em auto 0 auto; transform: translateY(0); transition: transform 0.8s ease-out; }
+    #title { display: block; font-size: 3em; color: white; text-align: center; opacity: 0.4; transition: opacity 0.3s ease-in-out; }
+    #title-container:hover #title { opacity: 1; }
+    #cowwd-btn { display: block; background-color: rgba(34, 34, 34, 0.4); border-radius: 2em; padding: 1.2em 1.2em 1.2em 1.2em; max-width: fit-content; margin: 2em auto 0 auto; transform: translateY(0); transition: transform 1s ease-out, background-color 0.3s ease-in-out; -webkit-tap-highlight-color: transparent; cursor: pointer; }
+    #cowwd-btn:hover { background-color: rgba(50, 50, 50, 0.6); }
+    #btn-text { display: block; font-size: 1.5em; color: white; text-align: center; opacity: 0.4; transition: opacity 0.3s ease-in-out; }
+    #cowwd-btn:hover #btn-text { opacity: 1; }
+    #bg-canvas { position: absolute; top: 0; bottom: 0; left: 0; right: 0; width: 100vw; height: 100vh; background: black; z-index: -9999; opacity: 1; transition: opacity 1.5s ease-out; }
+    @starting-style { #title-container { transform: translateY(10em); } #title { opacity: 0; } #cowwd-btn { transform: translateY(12em); } #btn-text { opacity: 0; } #bg-canvas { opacity: 0; }}
+  </style>
+</head>
+<body>
+  <div id="title-container">
+    <a href="#top">
+    <span id="title">The Transfinite Archive</span>
+    </a>
+  </div>
+  <canvas id="bg-canvas"></canvas>
+  <a href="/cowwd" id="cowwd-btn">
+    <span id="btn-text">COWWD</span>
+  </a>
+  <script>
+  const canvas = document.getElementById('bg-canvas'), ctx = canvas.getContext('2d');
+  const colors = [
+    { r: 74,  g: 144, b: 226, x: 0, y: 0, sx: 0.002, sy: 0.003, radius: 0 },
+    { r: 142, g: 68,  b: 173, x: 0, y: 0, sx: 0.004, sy: 0.001, radius: 0 },
+    { r: 211, g: 84,  b: 0,   x: 0, y: 0, sx: 0.001, sy: 0.005, radius: 0 },
+    { r: 45,  g: 100,  b: 255,  x: 0, y: 0, sx: 0.003, sy: 0.002, radius: 0 },
+    { r: 255,  g: 0,  b: 0,  x: 0, y: 0, sx: 0.003, sy: 0.002, radius: 0 },
+    { r: 255,  g: 240,  b: 102,  x: 0, y: 0, sx: 0.003, sy: 0.002, radius: 0 }
+];
+
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    colors[0].radius = Math.max(canvas.width, canvas.height) * 0.8;
+    colors[1].radius = Math.max(canvas.width, canvas.height) * 0.9;
+    colors[2].radius = Math.max(canvas.width, canvas.height) * 0.6;
+    colors[3].radius = Math.max(canvas.width, canvas.height) * 0.7;
+    colors[4].radius = Math.max(canvas.width, canvas.height) * 0.5;
+    colors[5].radius = Math.max(canvas.width, canvas.height) * 0.75;
+  }
+
+  window.addEventListener('resize', resize); 
+  resize();
+  let time = 0;
+  function animate() {
+    time += 0.5;
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.04)'; 
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.globalCompositeOperation = 'screen';
+    colors.forEach((c, index) => {
+      c.x = canvas.width / 2 + Math.sin(time * c.sx + index) * (canvas.width * 0.35);
+      c.y = canvas.height / 2 + Math.cos(time * c.sy + index) * (canvas.height * 0.35);
+      let gradient = ctx.createRadialGradient(c.x, c.y, 0, c.x, c.y, c.radius);
+      gradient.addColorStop(0, `rgba(${c.r}, ${c.g}, ${c.b}, 0.08)`); gradient.addColorStop(0, `rgba(${c.r}, ${c.g}, ${c.b}, 0.08)`); gradient.addColorStop(1, 'rgba(0, 0, 0, 0)'); 
+      ctx.fillStyle = gradient; ctx.beginPath(); ctx.arc(c.x, c.y, c.radius, 0, Math.PI * 2); ctx.fill(); });
+    ctx.globalCompositeOperation = 'source-over';
+    requestAnimationFrame(animate); }
+    animate();
+    console.log("Went through. No errors!");
+</script>
+</body>
+</html>
