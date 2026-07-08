@@ -5,23 +5,30 @@
   <meta name="viewport" content="width=device-width, intitial-scale=1.0, user-scalable=no">
   <title>The Transfinite Archive - COWWD</title>
   <style>
+    * { -webkit-tap-highlight-color: transparent; cursor: pointer; text-decoration: none; }
     body { display: block; margin: 0; overflow-x: hidden !important; overflow-y: auto !important; background: black; font-family: monospace; color: white; touch-action: none; user-select: none; font-size: 16px; }
-    .math-block { display: block; padding-left: 2em; margin-top: -0.75em; border-radius: 6px; }
-    .inline-math-block { display: block; padding-left: 2em; margin-top: 1.25em; border-radius: 6px; }
-    mjx-container[display="true"] { display: block; margin-bottom: -1em !important; white-space: normal !important; word-wrap: break-word !important; max-width: 100% !important; }
-    .h1 { display: block; padding-left: 1em; margin-top: 1em; font-size: 20px; font-weight: bold; }
-    .h2 { display: block; padding-left: 1.75em; margin-top: 1em; font-size: 15px; font-weight: bold; }
+    .math-block { display: block; margin-top: 0.5em; background-color: rgba(51, 51, 51, 0.4); max-width: fit-content; max-height: fit-content; padding: 0.5em 1em 0.5em 1em; border-radius: 2em; }
+    .inline-math-block { display: block; margin-top: 1.25em; background-color: rgba(51, 51, 51, 0.4); max-width: fit-content; padding: 0.5em 1em 0.5em 1em; border-radius: 2em; }
+    mjx-container[display="true"] { display: block; margin-top: 0 !important; margin-bottom: 0 !important; white-space: normal !important; word-wrap: break-word !important; max-width: 100% !important; }
+    #bg-canvas { position: fixed; top: 0; bottom: 0; left: 0; right: 0; width: 100vw; height: 100vh; background: black; z-index: -9999; opacity: 1; transition: opacity 1.5s ease-out; }
+    .h1 { display: block; margin-top: 1em; font-size: 20px; font-weight: bold; background-color: rgba(51, 51, 51, 0.4); max-width: fit-content; padding: 0.5em 1em 0.5em 1em; border-radius: 2em; }
+    .h2 { display: block; margin-top: 1em; font-size: 15px; font-weight: bold; background-color: rgba(51, 51, 51, 0.4); max-width: fit-content; padding: 0.5em 1em 0.5em 1.75em; border-radius: 2em; }
+    #back-button { display: block; margin-top: 1em; margin-left: auto; margin-right: 2em; background-color: rgba(51, 51, 51, 0.4); font-weight: bold; border: none; border-radius: 2em; padding: 0.5em 1em 0.5em 1em; color: white; }
   </style>
   <script>
-window.MathJax = { 
-tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
-chtml: { displayAlign: 'left', displayOverflow: 'linebreak',
-linebreaks: { inline: true, lineleading: 0.4 }
+    window.MathJax = { 
+    tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
+    chtml: { displayAlign: 'left', displayOverflow: 'linebreak',
+    linebreaks: { inline: true, lineleading: 0.4 }
 }}
   </script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js" defer></script
 </head>
 <body>
+  <canvas id="bg-canvas"></canvas>
+  <a href="/">
+  <button id="back-button">Back to Main Menu</button>
+  </a>
   <span class="h1">Introduction</span>
   <span class="inline-math-block">$COWWD(n)$ is a user-made computable function, made by me, mainly because I like graph minors a lot and I wanted to see how far I could take graph minors before they just become useless. It's a fast growing function and it uses a lot of graph minors, iterated graph minors, and is also bounded by the Extended Rathjen ordinal system ($\Psi_0(\chi_K(M))$). A graph minor is a finite sequence of graphs that's constrained by vertices or edges, based off of the Robertson-Seymour graph minor theorem, and an iterated graph minor is a version of a graph minor that's iterated $var$ times ($IGM^{var}(n)$). It's inspired off of $SCG(n)$, so of course it grows fast.</span>
 
@@ -92,11 +99,49 @@ linebreaks: { inline: true, lineleading: 0.4 }
   <span class="inline-math-block">COWWD eclipses functions bounded by the Extended Buchholz ordinals or lower ordinals. Why? Because the main thing COWWD has for growth is anchoring the bounding ordinal, $a$, to the countable limit of the Extended Rathjen notation system. The main COWWD equation also has 6 collapsing functions, even some used in graph minors. The symbol K serves as a structural bound inside the formal notation, and M acts as a modifier within the $\chi$ function, giving $a = \Psi_0(\chi_K(M))$. Because the FGH is evaluated through the computable fundamental sequences of the EROS, COWWD is computable while using the strength of the K ordinal.</span>
 
   <span class="h2">Property 3: Overuse of Knuth arrows, FGH collapsing functions, and graph minors</span>
-  <span class="inline-math-block">If you look at the main equation of COWWD, you'll notice the spam of graph minors, FGH collapsing functions, and Knuth arrows. Why did I put these? Well, to maximize growth of course. Why else would I? Anyway, this spam was on purpose, and it's even more powerful when following Rule 9. I'll give a little, I don't know, example I guess. Let's say you want to calculate $3 \uparrow\uparrow (3 \uparrow\uparrow 3)$. If you do it from left to right, you first do 3 tetrated by 3. That gives you 7,625,597,484,987. Then, you have to do the last tetration, which is $7,625,597,484,987 \uparrow\uparrow 3$. That makes a power tower of 7,625,597,484,987 with a height of 3. That's big, right? Well, if you do it right to left, you'll get a power tower of 3 with a height of 7,625,597,484,987, and that's way, way bigger.</span>
-
-  <span class="inline-math-block">Alright, that's all for now. Bye.</span>
+  <span class="inline-math-block">If you look at the main equation of COWWD, you'll notice the spam of graph minors, FGH collapsing functions, and Knuth arrows. Why did I put these? Well, to maximize growth of course. Why else would I? Anyway, this spam was on purpose, and it's even more powerful when following Rule 9. I'll give a little example. Let's say you want to calculate $3 \uparrow\uparrow (3 \uparrow\uparrow 3)$. If you do it from left to right, you first do 3 tetrated by 3. That gives you $7,625,597,484,987$. Then, you have to do the last tetration, which is $7,625,597,484,987 \uparrow\uparrow 3$. That makes a power tower of $7,625,597,484,987$ with a height of $3$. That's big, right? Well, if you do it right to left, you'll get a power tower of $3$ with a height of $7,625,597,484,987$, and that's way, way bigger.</span>
   <script>
-    console.log("Went though. No errors!");
-  </script>
+  window.history.scrollRestoration = 'manual'; window.scrollTo(0, 0);
+  const canvas = document.getElementById('bg-canvas'), ctx = canvas.getContext('2d');
+  const nodes = [
+    { r: 255, g: 0,   b: 0,   x: 0, y: 0, angle: 0,   speed: 0.004, radius: 0 },
+    { r: 255, g: 240, b: 102, x: 0, y: 0, angle: 1.5, speed: 0.003, radius: 0 },
+    { r: 142, g: 68,  b: 173, x: 0, y: 0, angle: 3.1, speed: 0.005, radius: 0 },
+    { r: 45,  g: 100, b: 255, x: 0, y: 0, angle: 4.7, speed: 0.002, radius: 0 },
+    { r: 0,  g: 255, b: 0, x: 0, y: 0, angle: 4.7, speed: 0.005, radius: 0 }
+  ];
+
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    const baseScale = Math.max(canvas.width, canvas.height);
+    nodes.forEach(n => n.radius = baseScale * (Math.random() * 2) + 0.5);
+  }
+  window.addEventListener('resize', resize); 
+  resize();
+
+  function animate() {
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.03)'; 
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.globalCompositeOperation = 'screen';
+    nodes.forEach(n => {
+      n.angle += n.speed;
+      n.x = canvas.width / 2 + Math.cos(n.angle) * (canvas.width * 0.25);
+      n.y = canvas.height / 2 + Math.sin(n.angle * 1.5) * (canvas.height * 0.2);
+      let gradient = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, n.radius);
+      gradient.addColorStop(0, `rgba(${n.r}, ${n.g}, ${n.b}, 0.06)`);
+      gradient.addColorStop(0.5, `rgba(${n.r}, ${n.g}, ${n.b}, 0.01)`);
+      gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
+      ctx.fillStyle = gradient;
+      ctx.beginPath();
+      ctx.arc(n.x, n.y, n.radius, 0, Math.PI * 2);
+      ctx.fill();
+    });
+    ctx.globalCompositeOperation = 'source-over';
+    requestAnimationFrame(animate); 
+  }
+  animate();
+  console.log("Went through. No errors!");
+</script>
 </body>
 </html>
