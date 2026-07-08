@@ -20,7 +20,11 @@
     #dynamic-toc a { color: inherit; }
   </style>
   <script>
-    window.MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] }, chtml: { displayAlign: 'left', displayOverflow: 'linebreak', linebreaks: { inline: true, lineleading: 0.4 }}}
+    window.MathJax = { 
+    tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
+    chtml: { displayAlign: 'left', displayOverflow: 'linebreak',
+    linebreaks: { inline: true, lineleading: 0.4 }
+}}
   </script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js" defer></script>
 </head>
@@ -30,7 +34,7 @@
   <button id="back-button">Back to Main Menu</button>
   </a>
   <span class="h1">Table of Contents</span>
-  <div class="inline-math-block" id="dynamic-toc" style="line-height: 1.2em;"></div>
+  <div class="inline-math-block" id="dynamic-toc" style="line-height: 1.2em; scroll-margin-top: 1em;"></div>
 
   <span class="h1">Introduction</span>
   <span class="inline-math-block">$COWWD(n)$ is a user-made computable function, made by me, mainly because I like graph minors a lot and I wanted to see how far I could take graph minors before they just become useless. It's a fast growing function and it uses a lot of graph minors, iterated graph minors, and is also bounded by the Extended Rathjen ordinal system ($\Psi_0(\chi_K(M))$). A graph minor is a finite sequence of graphs that's constrained by vertices or edges, based off of the Robertson-Seymour graph minor theorem, and an iterated graph minor is a version of a graph minor that's iterated $var$ times ($IGM^{var}(n)$). It's inspired off of $SCG(n)$, so of course it grows fast.</span>
@@ -77,7 +81,7 @@
     \end{array}
     $$
   </span>
-    <span class="h1">Comparing to other big numbers and fast growing functions</span>
+  <span class="h1">Comparing to other big numbers and fast growing functions</span>
   <span class="inline-math-block">COWWD's growth is mainly from the ordinal bounding, iterated graph minors, the use of M and Z, the FGH collapsing functions, and the overuse of Knuth arrows.</span>
 
   <span class="h2"> Compared to Graham's Number </span>
@@ -107,11 +111,11 @@
   <span class="h1">Usability of $COWWD(n)$</span>
   <span class="inline-math-block">You can use $COWWD(n)$ in any equation or context. Just make sure to give me credit.</span>
   <script>
-  window.history.scrollRestoration = 'manual'; window.scrollTo(0, 0);
+    window.history.scrollRestoration = 'manual'; window.scrollTo(0, 0);
   const tocContainer = document.getElementById('dynamic-toc');
   const headers = Array.from(document.querySelectorAll('.h1, .h2'));
   let h1Count = 0, h2Count = 0;
-  headers.forEach(header => { if (header.textContent.includes('Contents')) return; const safeId = header.textContent.replace(/[=\s?()]/g, '').toLowerCase(); header.id = safeId; const link = document.createElement('a'); link.href = `#${safeId}`;
+  headers.forEach(header => { if (header.textContent.includes('Contents')) return; const safeId = header.textContent.replace(/[=\s?()]/g, '').toLowerCase(); header.id = safeId; const originalText = header.innerHTML; header.innerHTML = `<a href="#dynamic-toc" style="color: inherit; text-decoration: none;">${originalText}</a>`; const link = document.createElement('a'); link.href = `#${safeId}`;
     if (header.classList.contains('h1')) { h1Count++; h2Count = 0; link.textContent = `${h1Count}.0 ${header.textContent.replace(/==/g, '').trim()}`; } else if (header.classList.contains('h2')) { h2Count++; link.style.paddingLeft = '1.5em'; link.textContent = `${h1Count}.${h2Count} ${header.textContent.replace(/===/g, '').trim()}`; }
     tocContainer.appendChild(link); tocContainer.appendChild(document.createElement('br')); });
   const canvas = document.getElementById('bg-canvas'), ctx = canvas.getContext('2d');
@@ -119,7 +123,7 @@
   function resize() {
     canvas.width = window.innerWidth, canvas.height = window.innerHeight;
     const baseScale = Math.max(canvas.width, canvas.height);
-    nodes.forEach(n => n.radius = baseScale * (Math.random() * 2) + 0.5);
+    nodes.forEach(n => n.radius = baseScale * (0.4 + Math.random() * 0.4));
   }
   window.addEventListener('resize', resize); 
   resize();
@@ -133,7 +137,7 @@
     requestAnimationFrame(animate); 
   }
   animate();
-  console.log("Went through. No errors!");
+  console.log("Went though. No errors!");
 </script>
 </body>
 </html>
