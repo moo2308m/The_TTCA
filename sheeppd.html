@@ -16,7 +16,7 @@
     #bg-canvas { position: fixed; top: 0; bottom: 0; left: 0; right: 0; width: 100vw; height: 100vh; background: black; z-index: -9999; opacity: 1; transition: opacity 1.5s ease-out; }
     .h1 { display: block; margin-top: 1em; font-size: 24px; font-weight: bold; background-color: rgba(51, 51, 51, 0.4); max-width: fit-content; padding: 0.5em 1em 0.5em 1em; border-radius: 2em; scroll-margin-top: 1em; }
     .h2 { display: block; margin-top: 1em; font-size: 18px; font-weight: bold; background-color: rgba(51, 51, 51, 0.4); max-width: fit-content; padding: 0.5em 1em 0.5em 1.75em; border-radius: 2em; scroll-margin-top: 1em; }
-    #back-button { display: block; cursor: pointer; margin-top: 1em; margin-left: auto; margin-right: 1em; background-color: rgba(51, 51, 51, 0.4); font-weight: bold; border: none; border-radius: 2em; padding: 0.5em 1em 0.5em 1em; color: white; font-size: 1.2em; font-family: comic sans ms; }
+    #back-button { display: block; cursor: pointer; margin-top: 1em; margin-left: auto; margin-right: 1em; background-color: rgba(51, 51, 51, 0.4); font-weight: bold; border: none; border-radius: 2em; padding: 0.5em 1em 0.5em 1em; color: white; font-size: 1.2em; }
     #dynamic-toc a { color: inherit; }
   </style>
   <script>
@@ -31,33 +31,41 @@
 <body>
   <canvas id="bg-canvas"></canvas>
   <a href="index.html">
-  <button id="back-button">Back to Main Menu</button>
+  <button id="back-button">Back to Homepage</button>
   </a>
   <span class="h1">Table of Contents</span>
   <div class="inline-math-block" id="dynamic-toc" style="line-height: 1.2em; scroll-margin-top: 1em;"></div>
   <span class="h1">Introduction</span>
-  <span class="inline-math-block">$SHEEPPD(n)$ is a user made computable function, made by me. It's based off of graphs and is the second function in the animal series. It's made off of graph theory and is equal to the maximum amount of shapes you can make with $n^n + 2^{n^{10^{27}}}$ lines and $n^n + 2^{n^{10^{27}}}$ different colors.</span>
+  <span class="inline-math-block">$SHEEPPD(n)$ is a user made computable function, made by me. It's based off of graphs and graph theory and is the second function in the animal series. $SHEEPPD(n)$ equals the maximum length of a finite sequence of distinct straight line graph embeddings, $G_1, G_2, \dots, G_k$, drawn on a flat plane that satisfies the structural growth and coloring limits of the rules. Graph $G_i$ has a limit of $S$ vertices, lines, and colors. Since shapes are undefined in graph theory, a shape is a closed set of lines, with a minimum being 3 lines (a triangle), a shape signature is the unordered multiset of a shape's line colors, and a line is a link connecting 2 points or vertices together. Also, I'll be referencing a function called "$GM(n)$" later. $GM(n)$ means $\text{GraphMinor}(n)$ and has the exact same rules and structure as the $SCG(n)$ function.</span>
   
+  <span class="h1">The equation for $S$</span>
+  <span class="inline-math-block">$Z_S = n [\uparrow^{2^{10^{27^n}}}] n + 2^{10^{27}}$</span>
+  <span class="inline-math-block">$E_S^1(x) = GM(x [\uparrow^{Z_S}] x)$</span>
+  <span class="inline-math-block">For any value of k > 1: $E_S^k(x) = GM(E_S^{(k^x) - 1}(Z_S) [\uparrow^{k + 1}] E_S^{Z_S}(k - 1))$</span>
+  <span class="inline-math-block">$S = E_S^{Z_S}(GM(Z_S [\uparrow^{Z_S}] Z_S))$</span>
   <span class="h1">The rules</span>
   <span class="inline-math-block">There are some rules for $SHEEPPD(n)$:</span>
-  <span class="math-block">$$\begin{array}{ll} 1.\text{ }n \text{ must be a positive integer&#46; } \\ 2. \text{ Every shape has to be a polygon but doesn't have to be convex&#46; } \\
-    3. \text{ A shape can contain itself, as long as it has at least one different color&#46; This only applies if it hasn't been in that shape 5 times, and for example, putting Shape A inside Shape B, both with a different color, then shape B into shape A, both with a different color, is not allowed&#46;} \\ 4. \text{ Lines obviously can't overlap or be directly inside each other&#46; } \\
-    5. \text{ Every line has to be a straight line and can't be curved&#46;}
-    \end{array}$$</span>
+  <span class="h2">1. $n$ must be a positive integer.</span>
+  <span class="h2">2. Each graph can't have more lines or vertices than the limit, $S$. </span>
+  <span class="h2">3. Inside any graph, lines can't overlap or be inside each other. If a line splits a shape, the outer shape and all smaller shapes made by the split count as valid, individual shapes.</span>
+  <span class="h2">4. A newer graph is illegal if it copies the way an older graph stacks networks of shapes inside each other. If graph 2 has a chain of shapes nested $10^{27}$ levels deep, a younger graph can't contain that hierarchical arrangement of shapes and color signatures anywhere in its system, even if it is stretched, spun around, or buried inside a massive web of lines.</span>
+  <span class="h2">5. The lines aren't like ARGB lights. They can't have multiple colors, and can only be one color at a time.</span>
   <script>
-    window.history.scrollRestoration = 'manual'; window.scrollTo(0, 0);
+      window.history.scrollRestoration = 'manual'; window.scrollTo(0, 0);
   const tocContainer = document.getElementById('dynamic-toc');
   const headers = Array.from(document.querySelectorAll('.h1, .h2'));
   let h1Count = 0, h2Count = 0;
   headers.forEach(header => { if (header.textContent.includes('Contents')) return; const safeId = header.textContent.replace(/[=\s?()]/g, '').toLowerCase(); header.id = safeId; const originalText = header.innerHTML; header.innerHTML = `<a href="#dynamic-toc" style="color: inherit; text-decoration: none;">${originalText}</a>`; const link = document.createElement('a'); link.href = `#${safeId}`;
-    if (header.classList.contains('h1')) { h1Count++; h2Count = 0; link.textContent = `${h1Count}.0: ${header.textContent.replace(/==/g, '').trim()}`; } else if (header.classList.contains('h2')) { h2Count++; link.style.paddingLeft = '1.5em'; link.textContent = `${h1Count}.${h2Count} ${header.textContent.replace(/===/g, '').trim()}`; }
+    let pfx = "", cleanText = ""; if (header.classList.contains('h1')) { h1Count++; h2Count = 0; pfx = `${h1Count}.0: `; cleanText = header.textContent.replace(/==/g, '').trim(); } else if (header.classList.contains('h2')) { h2Count++; link.style.paddingLeft = '1.5em'; pfx = `${h1Count}.${h2Count}: `; cleanText = header.textContent.replace(/===/g, '').trim(); }
+    let idx = 0, chars = 0, cutIdx = 0, isTrunc = false; while (idx < cleanText.length) { if (chars >= 40) { isTrunc = true; break; } if (cleanText[idx] === ' ') { idx++; cutIdx = idx; continue; } if (cleanText[idx] === '$') { let next = cleanText.indexOf('$', idx + 1); if (next !== -1) { idx = next + 1; cutIdx = idx; chars++; continue; } } idx++; cutIdx = idx; chars++; }
+    link.textContent = pfx + (isTrunc ? cleanText.substring(0, cutIdx).trim() + '...' : cleanText);
     tocContainer.appendChild(link); tocContainer.appendChild(document.createElement('br')); });
   const canvas = document.getElementById('bg-canvas'), ctx = canvas.getContext('2d');
   const nodes = [{ r: 255, g: 0,   b: 0,   x: 0, y: 0, angle: 0,   speed: 0.004, radius: 0 }, { r: 255, g: 240, b: 102, x: 0, y: 0, angle: 1.5, speed: 0.003, radius: 0 }, { r: 142, g: 68,  b: 173, x: 0, y: 0, angle: 3.1, speed: 0.005, radius: 0 }, { r: 45,  g: 100, b: 255, x: 0, y: 0, angle: 4.7, speed: 0.002, radius: 0 }, { r: 0,  g: 255, b: 0, x: 0, y: 0, angle: 4.7, speed: 0.005, radius: 0 }];
   function resize() {
     canvas.width = window.innerWidth, canvas.height = window.innerHeight;
     const baseScale = Math.max(canvas.width, canvas.height);
-    nodes.forEach(n => n.radius = baseScale * (0.4 + Math.random() * 0.4));
+    nodes.forEach(n => n.radius = baseScale * (Math.random() * 2) + 0.5);
   }
   window.addEventListener('resize', resize); 
   resize();
@@ -71,7 +79,7 @@
     requestAnimationFrame(animate); 
   }
   animate();
-  console.log("Went though. No errors!");
+  console.log("Went through. No errors!");
 </script>
 </body>
 </html>
